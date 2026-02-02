@@ -1,20 +1,26 @@
+#importing_random_module
+
 import random
 
-#function for random walk
-steps=10000
-list=[]
-b=[]
-disp=10
-c=0
-for i in range(disp):
-	for i in range(steps):
-		a=random.choice([-1,1])
-		list.append(a)
-	n=len(list)
+steps=100
+print("I am using steps :",steps)
+Trials=100
+print("Trial_Runs",Trials)
+D=[]
+for i in range(Trials):
+    c=0
+    lst=[]
+    for k in range(steps):
+	    a=random.choice([-1,1])
+	    lst.append(a)
 
-	for j in range(n):
-		c=c+list[j]
-b.append(c)
-n=len(b)
-for i in range(n):
-	print(b[i])
+    n=len(lst)
+    for j in range(n):
+	    c=c+lst[j]
+    D.append(c)
+l=len(D)
+for i in range(l):
+    d=0
+    #print("Final Displacement after step",D[i])
+    d=d+D[i]
+print("Final Stats added val :",d )
