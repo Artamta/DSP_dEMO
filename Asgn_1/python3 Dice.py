@@ -1,6 +1,5 @@
 import random
-rolls=100000
-print("Number of Rolls:",rolls)
+rolls=1000
 rolls_list=[]
 for i in range(rolls):
 	a=random.randint(1,6)
@@ -21,12 +20,6 @@ for i in range(n):
         e=e+1
     else:
         f=f+1
-print("Frequencies 1:",a,"2:",b,"3:",c,"4:",d,"5:",e,"6:",f)
-print("Total_Trials:",a+b+c+d+e+f)
-num=[a,b,c,d,e,f]
-l=len(num)
-pr=[]
-for i in range(l):
-    prob=num[i]/rolls
-    print("probality of coming of ",i+1,"is",prob)
+print("Frequinces:")
+print(a)
 
