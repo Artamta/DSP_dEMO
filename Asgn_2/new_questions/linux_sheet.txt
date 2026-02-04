@@ -1,0 +1,222 @@
+pwd
+# print current directory
+
+ls
+# list files
+
+ls -l
+# long listing
+
+ls -a
+# show hidden files
+
+cd dir
+# go to directory
+
+cd ..
+# go back
+
+cd ~
+# home directory
+touch file.txt
+# create empty file
+
+mkdir dir
+# create directory
+
+mkdir -p a/b/c
+# nested directories
+
+rm file.txt
+# delete file
+
+rm -r dir
+# delete directory
+
+rm -rf dir
+# force delete (dangerous)
+
+cp a.txt b.txt
+# copy file
+
+cp -r dir1 dir2
+# copy directory
+
+mv a.txt b.txt
+# rename
+
+mv file dir/
+# move file
+cat file.txt
+# show full file
+
+less file.txt
+# page by page
+
+head file.txt
+# first 10 lines
+
+head -n 5 file.txt
+# first 5 lines
+
+tail file.txt
+# last 10 lines
+
+tail -n 5 file.txt
+# last 5 lines
+
+tail -f log.txt
+# live log view
+wc file.txt
+# lines, words, bytes
+
+wc -l file.txt
+# number of lines
+
+wc -w file.txt
+# number of words
+
+wc -c file.txt
+# size in bytes
+grep "error" file.txt
+# find lines containing error
+
+grep -i "error" file.txt
+# ignore case
+
+grep -n "error" file.txt
+# show line numbers
+
+grep -v "error" file.txt
+# NOT matching
+
+grep -r "error" dir/
+# recursive search
+
+grep -c "error" file.txt
+# count matches
+grep "^ERROR" file.txt
+# starts with ERROR
+
+grep "ERROR$" file.txt
+# ends with ERROR
+
+grep "[0-9]" file.txt
+# contains digit
+
+grep "login\|logout" file.txt
+# OR condition
+command1 | command2
+# output of command1 → input of command2
+cat file.txt | grep "error"
+sort file.txt
+# sort alphabetically
+
+sort -n file.txt
+# numeric sort
+
+sort -r file.txt
+# reverse
+
+uniq file.txt
+# remove duplicates
+
+uniq -c file.txt
+# count duplicates
+
+sort file.txt | uniq -c
+# correct way
+cut -d "," -f1 file.csv
+# first column
+
+cut -d "," -f2 file.csv
+# second column
+awk '{print $1}' file.txt
+# first column
+
+awk '{print $2}' file.txt
+# second column
+
+awk -F "," '{print $2}' file.csv
+# CSV second column
+
+awk '$3 > 100 {print}' file.txt
+# conditional filter
+
+awk '{sum += $3} END {print sum}' file.txt
+# sum column
+sed 's/error/ERROR/' file.txt
+# replace first occurrence
+
+sed 's/error/ERROR/g' file.txt
+# replace all
+
+sed '/error/d' file.txt
+# delete matching lines
+command > out.txt
+# overwrite output
+
+command >> out.txt
+# append output
+
+command < file.txt
+# input from file
+
+command 2> err.txt
+# error output
+
+command &> all.txt
+# all output
+find . -name "*.txt"
+# find files
+
+find . -type f
+# files only
+
+find . -type d
+# directories only
+
+find . -size +1M
+# large files
+
+find . -name "*.log" -delete
+# delete files
+ls -l
+# check permissions
+
+chmod +x file.sh
+# make executable
+
+chmod 755 file.sh
+# rwxr-xr-x
+ps
+ps aux
+top
+kill PID
+tar -cvf a.tar dir/
+# create archive
+
+tar -xvf a.tar
+# extract
+
+gzip file.txt
+gunzip file.txt.gz
+shuf -i 1-100 -n 10
+# generate random numbers
+
+shuf -i 1-100 -n 10 > random.txt
+# save to file
+grep -E "^[0-9]*[02468]$" random.txt
+# even numbers
+cut -d "," -f2 file | sort | uniq -c
+sort file | uniq -c | sort -nr | head
+awk '{sum += $3} END {print sum}' file
+grep "ERROR" file > error.log
+
+cat file |
+grep condition |
+cut / awk |
+sort |
+uniq -c |
+sort -nr |
+> output.txt

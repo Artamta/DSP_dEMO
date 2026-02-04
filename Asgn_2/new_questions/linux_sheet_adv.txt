@@ -1,0 +1,231 @@
+==================== LINUX ADVANCED TEXT PROCESSING CHEATSHEET ====================
+
+FOCUS:
+- Given a text/CSV/log file
+- Sort columns
+- Extract fields
+- Count unique values
+- Aggregate (sum, mean)
+- Create new files
+- Solve ANY exam-style Linux question
+
+----------------------------------------------------------------------------------
+CORE IDEA:
+Everything is a pipeline:
+input → filter → transform → aggregate → output
+
+----------------------------------------------------------------------------------
+1. SORTING (COLUMN-WISE, NUMERIC, REVERSE)
+
+sort file.txt
+# sort alphabetically (line-wise)
+
+sort -n file.txt
+# numeric sort
+
+sort -r file.txt
+# reverse sort
+
+sort -k2 file.txt
+# sort by 2nd column (space-separated)
+
+sort -t "," -k2 file.csv
+# sort by 2nd column in CSV
+
+sort -t "," -k3 -n file.csv
+# numeric sort by 3rd column in CSV
+
+sort -t "," -k3 -nr file.csv
+# numeric reverse sort by 3rd column
+
+----------------------------------------------------------------------------------
+2. UNIQUE VALUES & FREQUENCIES (VERY COMMON EXAM QUESTIONS)
+
+uniq file.txt
+# remove duplicates (file MUST be sorted)
+
+uniq -c file.txt
+# count duplicates
+
+sort file.txt | uniq
+# correct way to remove duplicates
+
+sort file.txt | uniq -c
+# frequency of each unique line
+
+sort file.txt | uniq -c | sort -nr
+# most frequent lines first
+
+----------------------------------------------------------------------------------
+3. COLUMN EXTRACTION (cut vs awk)
+
+cut -d "," -f1 file.csv
+# extract 1st column
+
+cut -d "," -f2 file.csv
+# extract 2nd column
+
+cut -d "," -f1,3 file.csv
+# extract multiple columns
+
+awk '{print $1}' file.txt
+# first column (space-separated)
+
+awk -F "," '{print $2}' file.csv
+# second column (CSV)
+
+awk -F "," '{print $1,$3}' file.csv
+# multiple columns using awk
+
+----------------------------------------------------------------------------------
+4. GREP (FILTERING + CONDITIONS)
+
+grep "error" file.txt
+# lines containing error
+
+grep -i "error" file.txt
+# ignore case
+
+grep -v "error" file.txt
+# exclude matches
+
+grep "^ERROR" file.txt
+# starts with ERROR
+
+grep "ERROR$" file.txt
+# ends with ERROR
+
+grep -E "login|logout" file.txt
+# OR condition
+
+grep -c "error" file.txt
+# count matches
+
+----------------------------------------------------------------------------------
+5. AWK (THE MOST IMPORTANT EXAM TOOL)
+
+awk '{print $1}' file.txt
+# print column
+
+awk -F "," '{print $2}' file.csv
+# CSV column
+
+awk '$3 > 100 {print}' file.txt
+# conditional filtering
+
+awk -F "," '$3 < 0 {print}' ledger.txt
+# negative values
+
+awk '{sum += $3} END {print sum}' file.txt
+# sum of column
+
+awk '{count++} END {print count}' file.txt
+# count lines
+
+awk '{sum+=$3; count++} END {print sum/count}' file.txt
+# mean of column
+
+awk '{if ($3 > max) max=$3} END {print max}' file.txt
+# maximum value
+
+awk '{if (NR==1 || $3 < min) min=$3} END {print min}' file.txt
+# minimum value
+
+----------------------------------------------------------------------------------
+6. GROUP BY (EXAM FAVORITE)
+
+cut -d "," -f2 file.csv | sort | uniq -c
+# count per user / key
+
+awk -F "," '{sum[$2]+=$3} END {for (k in sum) print k, sum[k]}' file.csv
+# sum per group
+
+awk -F "," '{count[$2]++} END {for (k in count) print k, count[k]}' file.csv
+# count per group
+
+----------------------------------------------------------------------------------
+7. REDIRECTION & FILE CREATION
+
+command > output.txt
+# overwrite output file
+
+command >> output.txt
+# append to file
+
+grep "ERROR" file.txt > error.log
+# create new file with filtered content
+
+----------------------------------------------------------------------------------
+8. PIPELINE EXAMPLES (MOST IMPORTANT TO MEMORIZE)
+
+sort file.txt | uniq -c | sort -nr
+# frequency table sorted by count
+
+grep "login" file.txt | cut -d "," -f2 | sort | uniq -c
+# count logins per user
+
+awk -F "," '{print $2}' file.csv | sort | uniq
+# unique values in column
+
+----------------------------------------------------------------------------------
+9. SED (TRANSFORMATION)
+
+sed 's/error/ERROR/' file.txt
+# replace first occurrence
+
+sed 's/error/ERROR/g' file.txt
+# replace all occurrences
+
+sed '/error/d' file.txt
+# delete lines containing error
+
+----------------------------------------------------------------------------------
+10. TR (CHARACTER LEVEL)
+
+tr 'a-z' 'A-Z' < file.txt
+# convert to uppercase
+
+tr -d '0-9' < file.txt
+# remove digits
+
+----------------------------------------------------------------------------------
+11. PASTE & JOIN (MULTI-FILE QUESTIONS)
+
+paste file1 file2
+# combine line-wise
+
+join file1 file2
+# join on first column (files must be sorted)
+
+----------------------------------------------------------------------------------
+12. RANDOM DATA (ADVANCED)
+
+shuf -i 1-100 -n 10
+# generate random numbers
+
+shuf -i 1-100 -n 10 > random.txt
+# save random numbers
+
+shuf file.txt
+# randomize file lines
+
+----------------------------------------------------------------------------------
+13. XARGS (ADVANCED PIPE CONTROL)
+
+cat files.txt | xargs grep "ERROR"
+# run grep on multiple files
+
+----------------------------------------------------------------------------------
+14. UNIVERSAL EXAM SOLUTION PATTERN (MEMORIZE THIS)
+
+cat file |
+grep condition |
+cut / awk |
+sort |
+uniq -c |
+sort -nr |
+> result.txt
+
+----------------------------------------------------------------------------------
+END OF CHEATSHEET
+==================================================================================
