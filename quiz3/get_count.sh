@@ -1,1 +1,1 @@
-tail -n +2 life-expectancy.csv | cut -d "," -f1 | sort | uniq -c | sort -nr 
+tail -n +2 life-expectancy.csv | cut -d "," -f1 |sort -n| uniq -c | sort -nr

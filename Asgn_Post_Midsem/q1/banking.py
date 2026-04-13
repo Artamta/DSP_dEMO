@@ -9,7 +9,7 @@
 
 def load_accounts(filename):
     accounts = {}
-        file = open(filename, "r")
+    file = open(filename, "r")
 
     for line in file:
         parts = line.strip().split(",")
